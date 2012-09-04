@@ -7,6 +7,8 @@ import android.widget.TextView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.os.Vibrator;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 
 public class MainActivity extends Activity
 
@@ -16,6 +18,7 @@ public class MainActivity extends Activity
 	public int tap_count = 0;
 	private GestureDetector gesturedetector = null;
 	private Vibrator vibrator = null;
+	public static final String PREFS_NAME = "CounterPrefs";
 
     /** Called when the activity is first created. */
     @Override
@@ -31,6 +34,9 @@ public class MainActivity extends Activity
 
 		TextView display_count = new TextView(this);
 		display_count = (TextView)findViewById(R.id.display_count); 
+
+		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		tap_count = settings.getInt("latest_count", 0);
 
 		String current_count = String.valueOf(tap_count);
 
@@ -74,6 +80,13 @@ public class MainActivity extends Activity
 	public boolean onSingleTapUp(MotionEvent e) 
 	{
 		tap_count++;
+
+		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putInt("latest_count", tap_count);
+
+		editor.commit();
+
 		TextView display_count = new TextView(this);
 		display_count = (TextView)findViewById(R.id.display_count); 
 

@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
 	android:background="@drawable/background"
-    >
-	
-</RelativeLayout>
+	>
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="fill_parent"
+		android:layout_height="85sp"
+		android:background="@drawable/background"
+		>
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:layout_width="0dp"
+			android:layout_weight="0.05"
+			android:layout_height="75sp"
+			android:background="@drawable/background"
+			>
+		</LinearLayout>
+		<TextView android:id="@+id/display_count"
+			android:layout_width="0dp"
+			android:layout_weight="0.9"
+			android:layout_height="wrap_content"
+			android:text="0"
+			android:background="@drawable/display_background"
+			android:gravity="center_horizontal"
+			android:textSize="45sp"
+			android:layout_marginTop="10sp"
+			/>
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:layout_width="0dp"
+			android:layout_weight="0.05"
+			android:layout_height="75sp"
+			android:background="@drawable/background"
+			>
+		</LinearLayout>
+	</LinearLayout>
+</LinearLayout>
 

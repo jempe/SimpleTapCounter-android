@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-
+import android.os.Vibrator;
 
 public class MainActivity extends Activity
 
@@ -15,6 +15,7 @@ public class MainActivity extends Activity
 
 	public int tap_count = 0;
 	private GestureDetector gesturedetector = null;
+	private Vibrator vibrator = null;
 
     /** Called when the activity is first created. */
     @Override
@@ -24,7 +25,7 @@ public class MainActivity extends Activity
 
 		gesturedetector = new GestureDetector(this, this);
         gesturedetector.setOnDoubleTapListener(this);
-
+		vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
 
         setContentView(R.layout.main);
 
@@ -79,6 +80,7 @@ public class MainActivity extends Activity
 		String current_count = String.valueOf(tap_count);
 
 		display_count.setText(current_count);
+		vibrator.vibrate(50);
 		return false;
 	}
 

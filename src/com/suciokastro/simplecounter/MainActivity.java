@@ -9,6 +9,9 @@ import android.view.MotionEvent;
 import android.os.Vibrator;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.util.Log;
 
 public class MainActivity extends Activity
 
@@ -18,7 +21,9 @@ public class MainActivity extends Activity
 	public int tap_count = 0;
 	private GestureDetector gesturedetector = null;
 	private Vibrator vibrator = null;
+	private TextView display_count = null;
 	public static final String PREFS_NAME = "CounterPrefs";
+	private static final String TAG = "Counter";
 
     /** Called when the activity is first created. */
     @Override
@@ -32,7 +37,6 @@ public class MainActivity extends Activity
 
         setContentView(R.layout.main);
 
-		TextView display_count = new TextView(this);
 		display_count = (TextView)findViewById(R.id.display_count); 
 
 		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
@@ -62,7 +66,31 @@ public class MainActivity extends Activity
 	@Override
 	public void onLongPress(MotionEvent e) 
 	{
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+		alertDialog.setTitle(R.string.reset_count);
+		alertDialog.setMessage("dfsd");
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() 
+		{
+			public void onClick(DialogInterface dialog, int which)
+			{
+				tap_count = 0;
+				SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+				SharedPreferences.Editor editor = settings.edit();
+				editor.putInt("latest_count", tap_count);
 
+				editor.commit();
+
+				display_count = (TextView)findViewById(R.id.display_count); 
+
+				String current_count = String.valueOf(tap_count);
+
+				display_count.setText(current_count);
+				vibrator.vibrate(200);
+
+				Log.v(TAG, "Reset count");
+			} 
+		});
+		alertDialog.show();
 	}
 
 	@Override
